@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Pardo"
+  given-names: "Ignacio"
+  email: nacho.ignaciopardo@gmail.com
+  orcid: 'https://orcid.org/0000-0001-8837-8099'
+title: "Simple Neural Network"
+version: 1.0.0
+date-released: 2022-08-29
+url: "https://github.com/IgnacioPardo/SNN"
+keywords:
+  - 'Artificial Intelligence'
+  - 'Education'
+  - 'Neural Networks'
+  - 'Machine Learning'
+  - 'Research and Development'
+license: MIT
