@@ -1,4 +1,5 @@
 import numpy as np
+from utils import sigmoid, sigmoid_derivative
 
 class NeuralNetwork():
     
@@ -10,20 +11,6 @@ class NeuralNetwork():
         # Set synaptic weights to a nx1 matrix,
         # with values from -1 to 1 and mean 0
         self.synaptic_weights = 2 * np.random.random((n, 1)) - 1
-
-    def sigmoid(self, x : float) -> float:
-        """
-        Takes in weighted sum of the inputs and normalizes
-        them through between 0 and 1 through a sigmoid function
-        """
-        return 1 / (1 + np.exp(-x))
-
-    def sigmoid_derivative(self, x : float) -> float:
-        """
-        The derivative of the sigmoid function used to
-        calculate necessary weight adjustments
-        """
-        return x * (1 - x)
 
     def train(self, training_inputs : np.ndarray, training_outputs : np.ndarray, training_iterations : int):
         """
@@ -39,7 +26,7 @@ class NeuralNetwork():
 
             # Multiply error by input and gradient of the sigmoid function
             # Less confident weights are adjusted more through the nature of the function
-            adjustments = np.dot(training_inputs.T, error * self.sigmoid_derivative(output))
+            adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
 
             # Adjust synaptic weights
             self.synaptic_weights += adjustments
@@ -50,7 +37,7 @@ class NeuralNetwork():
         """
         
         inputs = inputs.astype(float)
-        output = self.sigmoid(np.dot(inputs, self.synaptic_weights))
+        output = sigmoid(np.dot(inputs, self.synaptic_weights))
         return output if not thresh else 1 if output > thresh else 0
 
     def __repr__(self):
