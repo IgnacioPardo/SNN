@@ -14,12 +14,11 @@ class NeuralNetwork():
 
     def train(self, training_inputs : np.ndarray, training_outputs : np.ndarray, training_iterations : int):
         """
-        We train the model through trial and error, adjusting the
-        synaptic weights each time to get a better result
+            Ajusta los synaptic_weights de la SNN dada una cantidad dada de training_iterations.
         """
         for iteration in range(training_iterations):
             # Pass training set through the neural network
-            output = self.think(training_inputs)
+            output = self.predict(training_inputs)
 
             # Calculate the error rate
             error = training_outputs - output
@@ -31,9 +30,9 @@ class NeuralNetwork():
             # Adjust synaptic weights
             self.synaptic_weights += adjustments
 
-    def think(self, inputs : np.ndarray, thresh=None) -> float:
+    def predict(self, inputs : np.ndarray, thresh=None) -> float:
         """
-        Pass inputs through the neural network to get output
+            Evalua la SNN con el array de inputs dado, redondea a 0 o 1 dado el threshold
         """
         
         inputs = inputs.astype(float)
@@ -64,14 +63,13 @@ if __name__ == "__main__":
     print(nn.synaptic_weights)
 
     # Train the neural network
-    epochs = 100000
-    nn.train(training_inputs, training_outputs, epochs)
+    nn.train(training_inputs, training_outputs, epochs = 100000)
 
     print("Synaptic weights after training: ")
     print(nn.synaptic_weights)
 
     # Try the neural network
     in_vals = [input("Enter input "+str(i+1)+": ") for i in range(n)]
-    out_vals = nn.think(np.array([int(i) for i in in_vals]), thresh=0.1)
+    out_vals = nn.predict(np.array([int(i) for i in in_vals]), thresh=0.5)
     print("Input data: ", ", ".join(in_vals))
     print("Output data: ", out_vals)
